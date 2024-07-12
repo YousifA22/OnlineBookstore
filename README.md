@@ -5,13 +5,6 @@ Topic:
 
     Acceptance Testing, BDD: Cucumber, JBehave
 
-Group 24 Members:
-
-    Christopher Fagan-Maber,
-    Abdurahman Jama,
-    Hasan Al-Hasoo,
-    Humam Khalil,
-    Yousif Alsendi
 
 SYSC 4806 Milestone 1 Project State:
 
