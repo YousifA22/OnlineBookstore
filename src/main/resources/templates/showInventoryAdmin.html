@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Amazin BookStore - Book Listing</title>
+  <style>
+    body {
+      background-color: whitesmoke;
+      color: cadetblue;
+      font-family: Calibri,serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      font-size: 20px;
+    }
+
+    nav {
+      background-color: lightgray;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    nav div, nav button a {
+      color: cadetblue;
+      text-decoration: none;
+    }
+
+    .book-item {
+      font-family: Calibri,serif;
+      font-size: 20px;
+      border: 2px solid cadetblue;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .getBook a, .form-field label {
+      color: cadetblue;
+      text-decoration: none;
+    }
+
+    .delete-button {
+      border: 1px solid darkred;
+      color: darkred;
+      border-radius: 5px;
+      background: none;
+      cursor: pointer;
+    }
+
+    .edit-button {
+      border: 1px solid darkgreen;
+      color: darkgreen;
+      border-radius: 5px;
+      background: none;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+  </style>
+</head>
+<body>
+<nav>
+  <div>Amazin BookStore</div>
+  <button><a href="/CreateBook">Add Book</a></button>
+  <button><a href="/">Log Out</a></button>
+  <button><a href="/Search">Search</a></button>
+</nav>
+
+<div class="book-list">
+  <p th:each="b : ${books}" class="book-item">
+    <span th:text="'Author: ' + ${b.getAuthor()}"></span><br/>
+    <span th:text="'Desc: ' + ${b.getBookDescription()}"></span><br/>
+    <span th:text="'Price: ' + ${b.getPrice()}"></span><br/>
+    <span th:text="'ISBN: ' + ${b.getISBN()}"></span><br/>
+    <span th:text="'Publisher: ' + ${b.getPublisher()}"></span><br/>
+    <span th:text="'Title: ' + ${b.getTitle()}"></span><br/>
+    <span th:text="'Stock: ' + ${b.getStock()}"></span><br/>
+    <button th:data-id="${b.getId()}" class="edit-button">Edit</button>
+    <button th:data-id="${b.getId()}" class="delete-button">Delete</button>
+  </p>
+</div>
+<script>
+  document.querySelectorAll('.edit-button').forEach(function(book) {
+    book.addEventListener('click', function() {
+      window.location.href = "/getBook?ID=" + book.getAttribute('data-id');
+    });
+  });
+  document.querySelectorAll('.delete-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      let bookId = this.getAttribute('data-id');
+      deleteBook(bookId);
+    });
+  });
+  const deleteBook = async (bookId) => {
+    const confirmDelete = confirm('Are you sure you want to delete this book?');
+
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/books/${bookId}`, {
+          method: 'DELETE'
+        })
+        window.location.href = '/admin';
+      } catch (error) {
+        console.log('Error deleting book', error);
+      }
+    }
+  };
+</script>
+</body>
+</html>

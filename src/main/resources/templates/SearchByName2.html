@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      font-family: Calibri,sans-serif;
+      background-color: whitesmoke;
+      color: cadetblue;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .book-detail {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: cadetblue;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <p th:each="b : ${bookList}" class="book-detail">
+    <a><span th:text="'Author: ' + ${b.getAuthor()}"/></a><br/>
+    <a><span th:text="'Desc: ' + ${b.getBookDescription()}"/></a><br/>
+    <a><span th:text="'Price: ' + ${b.getPrice()}"/></a><br/>
+    <a><span th:text="'ISBN: ' + ${b.getISBN()}"/></a><br/>
+    <a><span th:text="'Publisher: ' + ${b.getPublisher()}"/></a><br/>
+    <a><span th:text="'Title: ' + ${b.getTitle()}"/></a><br/>
+  </p>
+</div>
+</body>
+</html>

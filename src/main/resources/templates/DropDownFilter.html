@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      background-color: whitesmoke;
+      color: cadetblue;
+      font-family: Calibri, serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 46px;
+      margin-top: 20px;
+    }
+
+    label, select {
+      font-family: Calibri, serif;
+      font-size: 18px;
+      color: cadetblue;
+      margin: 10px 0;
+    }
+
+    select {
+      background-color: lightgray;
+      color: black;
+      border: 1px solid darkgray;
+      padding: 5px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Filter Books</h1>
+<label for="sortingOption">Select Sorting Option:</label>
+<select id="sortingOption" name="sortingOption">
+  <option class="getBook" data-id="price" value="price">Sort by Price</option>
+  <option class="getBook" data-id="author" value="author">Sort by Author</option>
+</select>
+
+<script>
+  document.getElementById('sortingOption').addEventListener('change', function() {
+    var selectedOption = document.getElementById('sortingOption');
+    var selectedVal = selectedOption.options[selectedOption.selectedIndex].getAttribute('data-id');
+    window.location.href = "/Filter?filter=" + selectedVal;
+  });
+</script>
+
+</body>
+</html>

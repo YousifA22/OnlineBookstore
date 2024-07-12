@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AmazingBookstoreUserCart</title>
+  <style>
+    body {
+      background-color: whitesmoke;
+      color: cadetblue;
+      font-family: Calibri, serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      font-size: 18px;
+    }
+
+    nav {
+      background-color: lightgray;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    nav h1, nav button a {
+      color: cadetblue;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      margin-top: 20px;
+      width: 60%;
+    }
+
+    .book-item {
+      font-family: Calibri, serif;
+      font-size: 18px;
+      border: 2px solid cadetblue;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      text-align: left;
+      width: 100px;
+    }
+
+    .book-item span {
+      display: block;
+      margin-bottom: 5px;
+      width: 100px;
+    }
+
+    .remove-button, .buy-button{
+      background-color: cadetblue;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <h1>Shopping Cart</h1>
+    <button><a th:href="@{/User(userId=${normalUser.getId()})}">Back to BookStore</a></button>
+  </nav>
+
+  <div th:each="b : ${normalUser.getShoppingCart()}" class="book-item">
+    <span th:text="'Author: ' + ${b.getAuthor()}"></span>
+    <span th:text="'Desc: ' + ${b.getBookDescription()}"></span>
+    <span th:text="'Price: ' + ${b.getPrice()}"></span>
+    <span th:text="'ISBN: ' + ${b.getISBN()}"></span>
+    <span th:text="'Publisher: ' + ${b.getPublisher()}"></span>
+    <span th:text="'Title: ' + ${b.getTitle()}"></span>
+    <span th:text="'Stock: ' + ${b.getStock()}"></span>
+    <button type="button" class="remove-button" th:data-id="${b.getId()}" th:user-id="${normalUser.getId()}">Remove from Cart</button>
+    <button type="button" th:data-id="${b.getId()}" th:user-id="${normalUser.getId()}" class="buy-button">Buy Book</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.remove-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      window.location.href = "/removefromcart?userId=" + button.getAttribute('user-id') + "&bookId=" + button.getAttribute('data-id');
+    });
+  });
+  document.querySelectorAll('.buy-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      window.location.href = "/buybook?userId=" + button.getAttribute('user-id') + "&bookId=" + button.getAttribute('data-id');
+    });
+  });
+</script>
+</body>
+</html>

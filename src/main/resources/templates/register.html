@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration - Amazin BookStore</title>
+    <style>
+        body {
+            background-color: whitesmoke;
+            color: cadetblue;
+            font-family: Calibri, serif;
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 50vh;
+            justify-content: center;
+        }
+
+        h1 {
+            color: cadetblue;
+            margin: 10px 0;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+            align-items: center;
+        }
+
+        form label, form input {
+            justify-self: start;
+        }
+
+        form div {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 200px;
+            background-color: lightgray;
+            color: black;
+            border: 1px solid darkgray;
+            padding: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: cadetblue;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            justify-self: center;
+        }
+
+        .registration-prompt {
+            margin-top: 10px;
+        }
+
+        a {
+            color: cadetblue;
+            text-decoration: none;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav button a {
+            color: cadetblue;
+            text-decoration: none;
+        }
+
+        nav div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Register</h1>
+    <form action="#" th:action="@{/registeruser}" th:object="${NormalUser}" method="post">
+        <div class="form-field">
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" />
+        </div>
+        <div class="form-field">
+            <label for="userID">Admin Key:</label>
+            <input type="text" id="userID" th:field="*{userID}" />
+        </div>
+        <div class="form-field">
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+
+    <nav>
+        <div>Return to Login</div>
+        <button><a href="/login">Login</a></button>
+    </nav>
+</div>
+</body>
+</html>

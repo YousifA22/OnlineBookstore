@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+        .checkout-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+        }
+        .form-field {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button {
+            display: inline-block;
+            background-color: cadetblue;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button.cancel {
+            background-color: grey;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="checkout-container">
+    <h2>Checkout</h2>
+    <form action="/Checkout" method="post">
+        <input type="hidden" name="userId" th:value="${normalUser.getId()}">
+        <input type="hidden" name="bookId" th:value="${book.getId()}">
+
+        <div class="form-field">
+            <label for="cardName">Name on Card:</label>
+            <input type="text" id="cardName" name="cardName" required>
+        </div>
+        <div class="form-field">
+            <label for="cardNumber">Card Number:</label>
+            <input type="number" id="cardNumber" name="cardNumber" required>
+        </div>
+        <div class="form-field">
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+        </div>
+        <div class="form-field">
+            <label for="cvv">CVV:</label>
+            <input type="number" id="cvv" name="cvv" required>
+        </div>
+        <button type="submit" class="button">Buy Book</button>
+        <a href="/mainStore" class="button cancel">Cancel</a>
+    </form>
+</div>
+<script>
+    document.querySelectorAll('.buy-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            window.location.href = "/ownedBooks?userId=" + button.getAttribute('user-id');
+        });
+    });
+</script>
+</body>
+</html>

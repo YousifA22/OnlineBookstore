@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Amazin BookStore</title>
+    <style>
+        body {
+            background-color: whitesmoke;
+            color: cadetblue;
+            font-family: Calibri, serif;
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 50vh;
+            justify-content: center;
+        }
+
+        h1 {
+            color: cadetblue;
+            margin: 10px 0;
+        }
+
+        .confirmation-message {
+            color: green;
+            margin: 10px 0;
+        }
+
+        .error-message {
+            color: red;
+            margin: 10px 0;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+            align-items: center;
+        }
+
+        form label, form input {
+            justify-self: start;
+        }
+
+        form div {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 200px;
+            background-color: lightgray;
+            color: black;
+            border: 1px solid darkgray;
+            padding: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: cadetblue;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            justify-self: center;
+        }
+
+        .registration-prompt {
+            margin-top: 10px;
+        }
+
+        a {
+            color: cadetblue;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Login</h1>
+
+<div th:if="${confirmationMessage}" th:text="${confirmationMessage}" class="confirmation-message"></div>
+<div th:if="${param.error}" class="error-message">Invalid username or password.</div>
+
+<form th:action="@{/login}" method="post">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <div>
+        <input type="submit" value="Login" />
+    </div>
+</form>
+
+<div class="registration-prompt">
+    <p>New to the Amazin BookStore? <button><a href="/register">Register here</a></button>
+    </p>
+</div>
+</body>
+</html>

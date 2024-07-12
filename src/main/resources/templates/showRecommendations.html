@@ -1,0 +1,139 @@
+<head>
+    <meta charset="UTF-8">
+    <title>BookRecommendations</title>
+    <style>
+        body {
+            background-color: whitesmoke;
+            color: cadetblue;
+            font-family: Calibri, serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: lightgray;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        nav button a {
+            color: cadetblue;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            margin-top: 10px;
+            font-size: 46px;
+        }
+
+        .book-item {
+            font-family: Calibri, serif;
+            font-size: 18px;
+            border: 2px solid cadetblue;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        button {
+            background-color: lightgray;
+            color: black;
+            border: 1px solid darkgray;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .book-list {
+            margin-top: 20px;
+        }
+
+        .rec-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .recommendation {
+            margin: 20px 0;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 75px;
+            padding-right: 75px;
+        }
+
+        .recommendation-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .no-recommendations-message {
+
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <h1>Book Recommendations</h1>
+    <button><a th:href="@{/User(userId=${user.getId()})}">Back to BookStore</a></button>
+</nav>
+<div class="rec-container">
+    <div class="recommendation">
+        <div class="recommendation-header">Recommendations Based on Past Purchases</div>
+        <div th:if="${#lists.isEmpty(pastPurchaseRecommendations)}" class="no-recommendations-message">
+            No past purchase recommendations available. It seems like you haven't made any purchases yet or there are
+            no books similar to your past purchases. Explore our collection to discover new books!
+        </div>
+        <div th:if="${not #lists.isEmpty(pastPurchaseRecommendations)}" class="book-list">
+            <p th:each="b : ${pastPurchaseRecommendations}">
+                <button type="button" class="book-item getBook" th:data-id="${b.getId()}" th:user-id="${user.getId()}">
+                    <span th:text="'Author: ' + ${b.getAuthor()}"/><br/>
+                    <span th:text="'Desc: ' + ${b.getBookDescription()}"/><br/>
+                    <span th:text="'Price: ' + ${b.getPrice()}"/><br/>
+                    <span th:text="'ISBN: ' + ${b.getISBN()}"/><br/>
+                    <span th:text="'Publisher: ' + ${b.getPublisher()}"/><br/>
+                    <span th:text="'Title: ' + ${b.getTitle()}"/><br/>
+                </button>
+            </p>
+        </div>
+    </div>
+    <div class="recommendation">
+        <div class="recommendation-header">Recommendations Based on Users Like You</div>
+        <div th:if="${#sets.isEmpty(otherUserRecommendations)}" class="no-recommendations-message">
+            No other user recommendations available. It appears that you haven't made any purchases or there are no
+            books in our collection similar to those purchased by other users. Check back later or explore our book
+            selection to discover new and exciting reads!
+        </div>
+        <div th:if="${not #sets.isEmpty(otherUserRecommendations)}" class="book-list">
+            <p th:each="b : ${otherUserRecommendations}">
+                <button type="button" class="book-item getBook" th:data-id="${b.getId()}" th:user-id="${user.getId()}">
+                    <span th:text="'Author: ' + ${b.getAuthor()}"/><br/>
+                    <span th:text="'Desc: ' + ${b.getBookDescription()}"/><br/>
+                    <span th:text="'Price: ' + ${b.getPrice()}"/><br/>
+                    <span th:text="'ISBN: ' + ${b.getISBN()}"/><br/>
+                    <span th:text="'Publisher: ' + ${b.getPublisher()}"/><br/>
+                    <span th:text="'Title: ' + ${b.getTitle()}"/><br/>
+                </button>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelectorAll('.getBook').forEach(function(book) {
+        book.addEventListener('click', function() {
+            window.location.href = "/removefromcart?userId=" + book.getAttribute('user-id') + "&bookId=" + book.getAttribute('data-id');
+        });
+    });
+</script>
+</body>
+</html>
